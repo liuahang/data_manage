@@ -16,5 +16,14 @@ public interface Constants {
     String ORACLE_DB_PASSWORD = "oracle.db.password";
     String ORACLE_DB_DRIVER = "oracle.db.driver";
 
+    String MYSQL_DB_URL = "mysql.db.url";
+    String MYSQL_DB_USERNAME = "mysql.db.username";
+    String MYSQL_DB_PASSWORD = "mysql.db.password";
+    String MYSQL_DB_DRIVER = "mysql.db.driver";
+
+    String IMPALA_DB_URL = "impala.db.url";
+    String IMPALA_DB_USERNAME = "impala.db.username";
+    String IMPALA_DB_password = "impala.db.password";
+    String IMPALA_DB_DRIVER = "impala.db.driver";
 
 }
