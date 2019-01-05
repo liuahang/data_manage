@@ -19,11 +19,11 @@ object hive2Gp_etl {
   }
   def WriteGpProcess(df :DataFrame): Unit ={
     val prop = new java.util.Properties
-    prop.setProperty("driver", Constants.GP_DB_DRIVER)
-    prop.setProperty("user", Constants.GP_DB_USRNAME)
-    prop.setProperty("password", Constants.GP_DB_PASSWORD)
+    prop.setProperty("driver", config.getString(Constants.GP_DB_DRIVER))
+    prop.setProperty("user", config.getString(Constants.GP_DB_USRNAME))
+    prop.setProperty("password", config.getString(Constants.GP_DB_PASSWORD))
 
-    val url = config.getString(Constants.GP_DB_URL)
+    val url = config.getString(config.getString(Constants.GP_DB_URL))
     df.write.mode("append").jdbc(url,"gj_gps_history",prop)
   }
 }
