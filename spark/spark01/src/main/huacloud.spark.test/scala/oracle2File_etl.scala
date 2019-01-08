@@ -224,8 +224,7 @@ object oracle2File_etl {
       .option("user", config.getString(Constants.ORACLE_DB_USRNAME))
       .option("password",config.getString(Constants.ORACLE_DB_PASSWORD))
       .option("driver",config.getString(Constants.ORACLE_DB_DRIVER))
-      .option("dbtable",dbtable)
-      .option("query","select * from "+tableName+" WHERE ldsjc >= '2018-09-01' ORDER BY ldsjc")
+      .option("dbtable","(select * from "+dbtable+" WHERE ldsjc >= '2018-09-01' ORDER BY ldsjc) AS tmpTable ")
       .load()
     needRmSensitive match {
       case true =>{
