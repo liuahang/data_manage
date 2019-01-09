@@ -23,7 +23,7 @@ object hive2Gp_etl {
     prop.setProperty("user", config.getString(Constants.GP_DB_USRNAME))
     prop.setProperty("password", config.getString(Constants.GP_DB_PASSWORD))
 
-    val url = config.getString(config.getString(Constants.GP_DB_URL))
+    val url =  config.getString(Constants.GP_DB_URL)
     df.write.mode("append").jdbc(url,"gj_gps_history",prop)
   }
 }
