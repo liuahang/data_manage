@@ -1,0 +1,15 @@
+.idea
+.settings
+target
+build
+gradle
+*.iml
+*.ipr
+*.iws
+public
+*.log
+/.travis.yml
+lib
+/api/*.iml
+/classes
+metastore_db

@@ -1,0 +1,15 @@
+{
+  "name" : "基于空值的字段检测",
+  "description" : "对某张表的某个字段, 进行空值检测, 结果列为: <合法数据行数>, <非法数据行数>, <合法数据百分比>",
+  "mainClass" : "com.cetc.hubble.dataquality.plugins.NullPlugin",
+  "supportedDB" : "Mysql,Oracle,Hive,Hbase,ElasticSearch,greenplum,HDFS,FTP",
+  "params": [
+    {
+      "seq": 1,
+      "key": "columnName",
+      "displayName": "columnName",
+      "description": "关联表字段名",
+      "example": "telephoneNumber"
+    }
+  ]
+}
