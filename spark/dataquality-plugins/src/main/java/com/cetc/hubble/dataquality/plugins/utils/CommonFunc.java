@@ -487,6 +487,7 @@ public class CommonFunc {
                 .append(aggColumn)
                 .append(") from ")
                 .append(tableName)
+				.append(" where jcsjc = str_to_date('2100-01-01 00:00:00', '%Y-%m-%d %H:%i:%s') ")
                 .append(") AS sourceTable");
         Dataset<Row> jdbcDF = spark.read()
                 .format("jdbc")
