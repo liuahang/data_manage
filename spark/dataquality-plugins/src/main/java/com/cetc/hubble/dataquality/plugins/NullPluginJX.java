@@ -126,7 +126,9 @@ public class NullPluginJX {
        CommonFunc.writeTable(legalUpdateDS, inputDBtype, inputIp, inputPort, inputDbName, inputTable, inUserName, inPasswd, sourcedbType, saveMode,numPartition);
        CommonFunc.writeTable(illegalUpdateDS, inputDBtype, inputIp, inputPort, inputDbName, inputTable, inUserName, inPasswd, sourcedbType, saveMode,numPartition);
 
-        //关闭会话和sparkContext
+        //清理缓存
+		totalDataset.uncache();
+		//关闭会话和sparkContext
         spark.close();
         spark.sparkContext().stop();
 
