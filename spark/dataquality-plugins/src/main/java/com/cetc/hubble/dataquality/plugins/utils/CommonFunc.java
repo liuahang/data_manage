@@ -246,6 +246,8 @@ public class CommonFunc {
                                          String outDbName, String outTable, String outUserName, String outPassword, String sourcedbType,String mode) {
         writeTable(dataset, outDBType, outIp, outPort, outDbName, outTable, outUserName, outPassword, sourcedbType, mode, 1);
     }
+    
+    
     public static void writeTable(Dataset dataset, String outDBType, String outIp, String outPort,
                                          String outDbName, String outTable, String outUserName, String outPassword, String sourcedbType,String mode,Integer numPartitions) {
         if ("MYSQL".equalsIgnoreCase(outDBType)) {

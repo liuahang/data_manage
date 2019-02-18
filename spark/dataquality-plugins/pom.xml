@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cetc.hubble</groupId>
-    <artifactId>dataquality-plugins</artifactId>
+    <artifactId>dataquality-plugins-test</artifactId>
     <version>2.0</version>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -22,11 +22,12 @@
             <id>cloudera</id>
             <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
         </repository>
+        <!-- 
         <repository>
             <id>fast-public</id>
             <url>http://nexus.chinacloud.com.cn/repository/fast-public/</url>
         </repository>
-
+ -->
     </repositories>
 
     <dependencies>
@@ -57,29 +58,33 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42</version>
-            <scope>compile</scope>
+             <version>5.1.42</version> 
+             <!--<version>6.0.2</version>-->
         </dependency>
-        <!-- oracle jdbc -->
+        <!-- oracle jdbc 
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.4</version>
         </dependency>
-
+-->
         <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.1.0</version>
         </dependency>-->
 
-        <!-- 日志包-->
+        <!-- 日志包
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>-->
+       <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
         </dependency>
-
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
@@ -88,11 +93,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
+   
 
         <!--<dependency>
             <groupId>com.dm</groupId>
@@ -102,15 +103,17 @@
     </dependencies>
 
     <!--公共的插件配置 -->
+    <!--公共的插件配置 -->
     <build>
         <finalName>dataquality-plugins</finalName>
         <plugins>
             <!--scala编译插件-->
+            <!--  
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <!--<version>3.2.0</version>-->
-                <executions>
+                <version>3.2.0</version>
+                <executions>        
                     <execution>
                         <id>scala-compile-first</id>
                         <phase>process-resources</phase>
@@ -118,19 +121,23 @@
                             <goal>add-source</goal>
                             <goal>compile</goal>
                         </goals>
-                    </execution>
+                    </execution>              
                     <execution>
+                     
                         <id>scala-test-compile</id>
                         <phase>process-test-resources</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
+                     
                 </executions>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>
             </plugin>
+            -->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -152,6 +159,7 @@
                                     <include>net.sf.json-lib:json-lib</include>
                                     <include>net.sf.ezmorph:ezmorph</include>
                                     <include>com.dm:dmjdbc7</include>
+                                    <include>org.apache.spark:spark-sql_2.11</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
@@ -166,10 +174,11 @@
                     </outputFile>
                 </configuration>
             </plugin>
+             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <!--<version>3.1.0</version>-->
+                <version>3.1.0</version>
                 <configuration>
                     <descriptors>
                         <descriptor>${basedir}/assembly/zip.xml</descriptor>
@@ -186,8 +195,45 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									net.alchim31.maven
+        								</groupId>
+        								<artifactId>
+        									scala-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[3.2.0,)
+        								</versionRange>
+        								<goals>
+        									<goal>compile</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
     </build>
 
+	
+	
     <profiles>
         <!--正则表达式 -->
         <profile>

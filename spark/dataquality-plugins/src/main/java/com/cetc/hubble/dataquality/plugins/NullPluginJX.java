@@ -60,7 +60,7 @@ public class NullPluginJX {
 
         paramsMap.put("lowerBound",String.valueOf(lowerBound));
         paramsMap.put("upperBound", String.valueOf(upperBound));
-
+        
 
 
         Dataset<Row> preTotalDataset = CommonFunc.readTable(spark, inputDBtype, inputIp, inputPort, inputDbName, inputTable, inUserName, inPasswd, sourcedbType, paramsMap,numPartition,true,null);
@@ -68,6 +68,7 @@ public class NullPluginJX {
         preTotalDataset.printSchema();
         Dataset<Row> totalDataset = preTotalDataset.drop("jcsjc");
         totalDataset.cache();
+        
         CommonFunc.createGloabView(totalDataset);
 
 
@@ -127,7 +128,7 @@ public class NullPluginJX {
        CommonFunc.writeTable(illegalUpdateDS, inputDBtype, inputIp, inputPort, inputDbName, inputTable, inUserName, inPasswd, sourcedbType, saveMode,numPartition);
 
         //清理缓存
-		totalDataset.uncache();
+		//totalDataset.uncache();
 		//关闭会话和sparkContext
         spark.close();
         spark.sparkContext().stop();
