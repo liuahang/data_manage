@@ -51,7 +51,7 @@ public class CommonUtils {
 		 
         String sql = "(select * from (SELECT @rownum := @rownum +1 AS num,e.* FROM(SELECT @rownum := 0) r,"
         		+ connectObj.getTableName()
-        		+ " e where jcsjc is null ) a) AS sourceTable";
+        		+ " e where jcsjc is null ) a ) AS sourceTable";
         Dataset<Row> jdbcDF = connectObj.getSparkSession().read()
                 .format("jdbc")
                 .option("useSSL", "false")
@@ -78,7 +78,8 @@ public class CommonUtils {
         prop.setProperty("user", writeObj.getUserName());
         prop.setProperty("password", writeObj.getPassword());
         if(writeObj.getMode().equalsIgnoreCase("update")){
-        	writeObj.getDataset().write().option("saveMode", writeObj.getMode()).option("useSSL","false").option("numPartitions",writeObj.getNumPartition())
+        	writeObj.getDataset().write().option("saveMode", writeObj.getMode()).option("dbType","mysql")
+					.option("useSSL", "false").option("numPartitions",writeObj.getNumPartition())
                     .jdbc(jdbcUrl,writeObj.getTableName(),prop);
         }else{
         	writeObj.getDataset().write().mode(writeObj.getMode()).option("useSSL", "false")
