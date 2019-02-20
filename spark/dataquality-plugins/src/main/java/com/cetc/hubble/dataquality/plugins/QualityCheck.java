@@ -54,6 +54,32 @@ public class QualityCheck {
 		// 检查字段
 		String seq1 = args[11];
 		String seq2 = args[12];
+		/*//检测的数据库类型
+		String inputDBtype = "mysql";
+		//ip
+		String inputIp = "192.168.3.154";
+		//端口
+		String inputPort = "3306";
+		//数据库
+		String inputDbName = "spark_etl_test";
+		//输入读取的表的名称
+		String inputTable = "wh_re_units";
+		//输入数据库用户名
+		String inUserName = "root";
+		//输入数据库密码
+		String inPasswd = "Lxx123456";
+		String inPasswdAES = "Lxx123456";
+		// 输出URL
+		String outPutUrl = "";
+		// 输出表名
+		String outputTable =  "";
+		// 输出数据库用户名
+		String outUserName =  "";
+		// 输出数据库密码
+		String outPasswd =  "";
+		// 检查字段
+		String seq1 = "unit_name";
+		String seq2 = "unit_code";*/
 
 		printLogInfo("inputIp", inputIp);
 		printLogInfo("inputPort", inputPort);
@@ -95,7 +121,7 @@ public class QualityCheck {
 		Dataset<Row> preTotalDataset = CommonUtils.getBeforeCheckData(connectObj);
 		System.out.print("*****************" + inputTable + "的Schema信息******************");
 		preTotalDataset.printSchema();
-		Dataset<Row> totalDataset = preTotalDataset.drop("jcsjc");
+		Dataset<Row> totalDataset = preTotalDataset.drop("jcsjc").drop("num");
 		totalDataset.cache();
 
 		CommonFunc.createGloabView(totalDataset);
@@ -160,10 +186,9 @@ public class QualityCheck {
 		wobj.setPort(inputPort);
 		wobj.setDataset(legalUpdateDS);
 		wobj.setNumPartition(4);
-		wobj.setMode("Update");
+		wobj.setMode("update");
 		CommonUtils.writeDFToTable(wobj);
-		// 清理缓存
-		// totalDataset.uncache();
+
 		// 关闭会话和sparkContext
 		spark.close();
 		spark.sparkContext().stop();
